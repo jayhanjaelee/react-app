@@ -1,2 +1,11 @@
-.container {
+table {
+  border: 1px solid #000;
+}
+
+thead {
+  border-bottom: 1px solid #000;
+}
+
+tbody tr {
+  border-bottom: 1px solid #000;
 }
