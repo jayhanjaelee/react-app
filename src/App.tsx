@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react';
 import axios, { AxiosError, CanceledError } from 'axios';
 
 interface User {
-  id: string;
+  id: number;
   name: string;
-  username: string;
-  email: string;
+  username?: string;
+  email?: string;
 }
 
 function App() {
@@ -45,11 +45,31 @@ function App() {
     });
   };
 
+  const addUser = () => {
+    const originalUsers = [...users];
+    const newUser = { id: 0, name: 'Hanjae' };
+    setUsers([newUser, ...users]);
+
+    axios
+      .post('https://jsonplaceholder.typicode.com/xusers', newUser)
+      .then(({ data: savedUser }) => {
+        console.log(savedUser);
+        setUsers([savedUser, ...users]);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setUsers(originalUsers);
+      });
+  };
+
   return (
     <>
       <div className="container mt-5">
         {error && <p className="text-danger">{error}</p>}
         {isLoading && <div className="spinner-border"> </div>}
+        <button className="btn btn-primary mb-3" onClick={addUser}>
+          Add
+        </button>
         <ul className="list-group">
           {users.map((user) => (
             <li key={user.id} className="list-group-item d-flex justify-content-between">
