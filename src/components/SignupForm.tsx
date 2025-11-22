@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 const UserInfo = z.object({
   username: z.string().min(3, { message: 'hello, world' }).max(10),
-  password: z.number().min(6).max(15),
+  password: z.string().min(6).max(15),
   email: z.email().min(3).max(10),
   phone: z.string().min(10),
 });
